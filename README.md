@@ -28,5 +28,6 @@ You'll need:
 You can check if wiringPi’s installation succeeded by running the gpio command:
 - gpio -v
 - gpio readall
+
 Run the Ring binary to test your doorbell setup:
 - ./Ring
