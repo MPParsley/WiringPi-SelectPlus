@@ -13,7 +13,7 @@ const byte rfPin=7;
 
 void SelectPlus(uint32_t address) {
     int pulseWidth = 325;// Pulse breedte in uS
-    byte repeat = 16;   //  repeat send
+    byte repeat = 40;   //  repeat send
     uint32_t databit;
     uint32_t mask = 0x10000;
     uint32_t sendbuff;
@@ -51,8 +51,8 @@ int main(int argc, char* argv[])
   if (wiringPiSetup () == -1)
     return 1;
 
-   SelectPlus(0x1BB40);// White
-//   SelectPlus(0x1C330);// Black
+//   SelectPlus(0x1BB40);// White
+   SelectPlus(0x1C330);// Black
    char str[] = "Dong";
    cout << "Ding : " << str << endl;
 }
