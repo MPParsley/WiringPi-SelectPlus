@@ -3,17 +3,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <cstring>
+#include <unistd.h>
 #include <wiringPi.h>
 #include <iostream>
 #include <sys/types.h>
 
 using namespace std;
 
-const byte rfPin=7;
+const byte rfPin = 7;
 
 void SelectPlus(uint32_t address) {
-    int pulseWidth = 325;// Pulse breedte in uS
-    byte repeat = 40;   //  repeat send
+    int pulseWidth = 325; // Pulse width in uS
+    byte repeat = 40;     // Repeat send
     uint32_t databit;
     uint32_t mask = 0x10000;
     uint32_t sendbuff;
@@ -48,13 +50,32 @@ void SelectPlus(uint32_t address) {
 
 int main(int argc, char* argv[])
 {
-  if (wiringPiSetup () == -1)
-    return 1;
+    // Check if WiringPi is properly installed.
+    if (wiringPiSetup () == -1) {
+      std::cout << "Please install WiringPi first (http://wiringpi.com/download-and-install/)." << '\n';
+      return 1;
+    }
 
-//   SelectPlus(0x1BB40);// White
-   SelectPlus(0x1C330);// Black
-   char str[] = "Dong";
-   cout << "Ding : " << str << endl;
+    // Check if an argument is present.
+    if (argc < 2) {
+      std::cout << "Please enter at least one argument: ./Ring white" << '\n' << "You can also use multiple arguments: ./Ring black white black." << '\n';
+      return 1;
+    }
+
+    // Loop through arguments.
+    for (int count=1; count < argc; ++count) {
+        if (!strcmp(argv[count], "white")) {
+            SelectPlus(0x1BB40); // White
+            std::cout << count << " Ding Dong (White) " << '\n';
+        } else {
+            SelectPlus(0x1C330); // Black
+            std::cout << count << " Ding Dong (Black)" << '\n';
+        }
+        if (count < argc) {
+            std::cout << count << " Pauze (5s)" << '\n';
+            usleep(5000000);
+        }
+    }
 }
 
 /*           ___
