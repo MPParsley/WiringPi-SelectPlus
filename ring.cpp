@@ -21,13 +21,13 @@ void SelectPlus(uint32_t address) {
     uint32_t sendbuff;
 
     for (byte j = 0; j <= repeat; j++) {
-        sendbuff=address;
+        sendbuff = address;
         // send 3 HIGH pulses for syncing
         digitalWrite(rfPin, HIGH);
         delayMicroseconds(pulseWidth * 3);
 
         // Send command
-        for (int i = 0; i < 17;i++) {  // 13+4 bits
+        for (int i = 0; i < 17; i++) {  // 13+4 bits
             databit = sendbuff & mask; // Get most left bit
             sendbuff = (sendbuff << 1);// Shift left
 
@@ -72,7 +72,7 @@ int main(int argc, char* argv[])
             std::cout << count << " Ding Dong (Black)" << '\n';
         }
         if (count < argc) {
-            std::cout << count << " Pauze (5s)" << '\n';
+            std::cout << count << " Pause (5s)" << '\n';
             usleep(5000000);
         }
     }
