@@ -1,2 +1,33 @@
 # WiringPi-SelectPlus
-Send the QH-832AC doorbell signal for the Raspberry Pi
+Send the QH-832AC doorbell signal from a Raspberry Pi.
+
+## Introduction
+This script is based on the blog post "[QH-832AC Door-bell modding](https://arduinodiy.wordpress.com/2015/03/02/qh-832ac-door-bell-moddinghttps://arduinodiy.wordpress.com/2015/03/02/qh-832ac-door-bell-modding)".
+
+## Hardware
+You'll need:
+- [QH-832AC Doorbell from Quhwa](http://www.quhwa.com/Auto-learning-Code-Chimes-QH-832AC-g-72.html).
+- [433 MHz RF transmitter, like this one](https://iprototype.nl/products/components/communications/rf-transmitter-434mhz)
+
+## Installation
+- [Install WiringPi](http://wiringpi.com/download-and-install/)
+  - sudo apt-get install git-core
+  - sudo apt-get update
+  - sudo apt-get upgrade
+  - git clone git://git.drogon.net/wiringPi
+  - cd wiringPi
+  - git pull origin
+  - cd wiringPi
+  - ./build
+- Install WiringPi-SelectPlus doorbell:
+  - git clone git://github.com/MPParsley/WiringPi-SelectPlus
+  - cd WiringPi-SelectPlus
+  - sudo g++ -o Ring ring.cpp -I/usr/local/include -L/usr/local/lib -lwiringPi
+
+## Testing
+You can check if wiringPi’s installation succeeded by running the gpio command:
+- gpio -v
+- gpio readall
+
+Run the Ring binary to test your doorbell setup:
+- ./Ring
