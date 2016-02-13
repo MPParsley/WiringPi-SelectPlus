@@ -29,5 +29,7 @@ You can check if wiringPi’s installation succeeded by running the gpio command
 - gpio -v
 - gpio readall
 
-Run the Ring binary to test your doorbell setup:
-- ./Ring
+Run the Ring binary to test your doorbell setup using the "black" or "white" commandline argument:
+- ./Ring black # To ring the black doorbell once.
+- ./Ring white # To ring the white doorbell once.
+- ./Ring black black white # To ring the black doorbell twice and the white doorbell once.
