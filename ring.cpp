@@ -65,10 +65,10 @@ int main(int argc, char* argv[])
     // Loop through arguments.
     for (int count=1; count < argc; ++count) {
         if (!strcmp(argv[count], "white")) {
-            SelectPlus(0x1BB40); // White
+            SelectPlus(0x3BB40); // White
             std::cout << count << " Ding Dong (White) " << '\n';
         } else {
-            SelectPlus(0x1C330); // Black
+            SelectPlus(0x3C330); // Black
             std::cout << count << " Ding Dong (Black)" << '\n';
         }
         if (count < argc) {
