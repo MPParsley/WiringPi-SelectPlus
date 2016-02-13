@@ -33,3 +33,5 @@ Run the Ring binary to test your doorbell setup using the "black" or "white" com
 - ./Ring black # To ring the black doorbell once.
 - ./Ring white # To ring the white doorbell once.
 - ./Ring black black white # To ring the black doorbell twice and the white doorbell once.
+
+Note: make sure to ring once immediately after plugging in the doorbell to "pair" the device.
