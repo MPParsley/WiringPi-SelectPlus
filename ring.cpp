@@ -8,10 +8,15 @@
 #include <wiringPi.h>
 #include <iostream>
 #include <sys/types.h>
+#include <sstream>
+#include <fstream>
+#include <string>
+#include <map>
 
-using namespace std;
-
-const byte rfPin = 7;
+byte rfPin = 7;
+unsigned long int timing = 5000000;
+uint32_t black = 0x3C330;
+uint32_t white = 0x3BB40;
 
 void SelectPlus(uint32_t address) {
     int pulseWidth = 325; // Pulse width in uS
@@ -62,18 +67,76 @@ int main(int argc, char* argv[])
       return 1;
     }
 
+
+    // Read config file.
+    std::string line;
+    std::ifstream configFile("config.ini");
+    if (configFile)
+    {
+        std::cout << "Config file found." << '\n';
+    }
+    else
+    {
+        std::cout << "No config file found, using default settings." << '\n';
+    }
+    while (std::getline(configFile, line))
+    {
+        std::istringstream is_line(line);
+        std::string key;
+        if (std::getline(is_line, key, '='))
+        {
+            std::string value;
+            // Skip comment lines.
+            if (key[0] == '#')
+                continue;
+
+            // Handle settings.
+            if (std::getline(is_line, value))
+            {
+                std::cout << "Read config key '" << key << "' value '" << value << "'" << '\n';
+                if (strcmp(key.c_str(), "gpio") == 0)
+                {
+                    rfPin = strtoul(value.c_str(), 0, 10);
+                }
+                else if (strcmp(key.c_str(), "timing") == 0)
+                {
+                    timing = strtoul(value.c_str(), 0, 10);
+                }
+                else if (strcmp(key.c_str(), "black") == 0)
+                {
+                    black = strtoul(value.c_str(), 0, 16);
+                }
+                else if (strcmp(key.c_str(), "white") == 0)
+                {
+                    white = strtoul(value.c_str(), 0, 16);
+                }
+                else
+                {
+                    std::cout << "Unknown config key '" << key << "' value '" << value << "'" << '\n';
+                }
+            }
+        }
+    }
+
     // Loop through arguments.
     for (int count=1; count < argc; ++count) {
         if (!strcmp(argv[count], "white")) {
+<<<<<<< HEAD
+            SelectPlus(white); // White
+            std::cout << count << " Ding Dong (White)" << '\n';
+        } else {
+            SelectPlus(black); // Black
+=======
             SelectPlus(0x3BB40); // White
             std::cout << count << " Ding Dong (White) " << '\n';
         } else {
             SelectPlus(0x3C330); // Black
+>>>>>>> 1c93e2d8fae66006c124f19ae6573b38a32b1241
             std::cout << count << " Ding Dong (Black)" << '\n';
         }
-        if (count < argc) {
-            std::cout << count << " Pause (5s)" << '\n';
-            usleep(5000000);
+        if (count + 1 < argc) {
+            std::cout << count << " Pause (waiting 5s)" << '\n';
+            usleep(timing);
         }
     }
 }
