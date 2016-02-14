@@ -24,6 +24,12 @@ You'll need:
   - cd WiringPi-SelectPlus
   - sudo g++ -o Ring ring.cpp -I/usr/local/include -L/usr/local/lib -lwiringPi
 
+## Configuration
+You can change the settings in the "config.ini" file:
+- gpio: WiringPi Pin number (See http://wiringpi.com/pins/).
+- timing: Pause in between rings (in microseconds).
+- black, white: # Bell codes for respectively black and white doorbell.
+
 ## Testing
 You can check if wiringPi’s installation succeeded by running the gpio command:
 - gpio -v
