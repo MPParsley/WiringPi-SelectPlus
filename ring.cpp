@@ -121,17 +121,10 @@ int main(int argc, char* argv[])
     // Loop through arguments.
     for (int count=1; count < argc; ++count) {
         if (!strcmp(argv[count], "white")) {
-<<<<<<< HEAD
             SelectPlus(white); // White
             std::cout << count << " Ding Dong (White)" << '\n';
         } else {
             SelectPlus(black); // Black
-=======
-            SelectPlus(0x3BB40); // White
-            std::cout << count << " Ding Dong (White) " << '\n';
-        } else {
-            SelectPlus(0x3C330); // Black
->>>>>>> 1c93e2d8fae66006c124f19ae6573b38a32b1241
             std::cout << count << " Ding Dong (Black)" << '\n';
         }
         if (count + 1 < argc) {
