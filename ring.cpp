@@ -22,7 +22,7 @@ void SelectPlus(uint32_t address) {
     int pulseWidth = 325; // Pulse width in uS
     byte repeat = 40;     // Repeat send
     uint32_t databit;
-    uint32_t mask = 0x10000;
+    uint32_t mask = 0x20000;
     uint32_t sendbuff;
 
     for (byte j = 0; j <= repeat; j++) {
